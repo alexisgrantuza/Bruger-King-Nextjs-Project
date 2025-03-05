@@ -1,8 +1,25 @@
+"use client";
+
 import { LoginForm } from "@/components/Forms/Login-Form";
 import Image from "next/image";
-import React from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function LoginPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.id) {
+      router.push(`/home/${session.user.id}`);
+    }
+  }, [status, session, router]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center p-6 md:p-10 bg-gradient-to-r from-black via-[rgb(242,66,31)] to-black">
       {/* Burger Images - Positioned Around the Form */}

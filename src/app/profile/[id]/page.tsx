@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
 import { ProfileOverview } from "@/components/layout/ProfileOverview";
 
 const Profile = () => {
@@ -23,7 +21,7 @@ const Profile = () => {
   const user = {
     name: session?.user?.name,
     email: session?.user?.email,
-    image: session?.user?.image || "/default-avatar.png",
+    image: session?.user?.image || "/image/burger-1.png",
     phone: "123-456-7890", // Placeholder, replace with real data
     location: "New York, USA", // Placeholder, replace with real data
   };

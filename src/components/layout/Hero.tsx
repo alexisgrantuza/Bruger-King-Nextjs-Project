@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
@@ -40,8 +41,8 @@ const Hero: React.FC = () => {
           </div>
 
           <div className="text-base flex items-center justify-center gap-2 py-10 md:justify-start md:flex-nowrap">
-            <button className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-full mr-4 py-2 px-4 focus:shadow-outline">
-              Explore Menu
+            <button className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none font-medium rounded-full mr-4 py-2 px-4 focus:shadow-outline">
+              <Link href="/products">Explore Menu</Link>
             </button>
             <div className="paragraph">
               <span>40+ </span>Awesome Offers.

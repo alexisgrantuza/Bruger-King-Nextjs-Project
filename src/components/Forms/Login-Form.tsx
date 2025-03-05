@@ -9,7 +9,7 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signIn, getSession } from "next-auth/react";
 
 export function LoginForm({
@@ -35,12 +35,15 @@ export function LoginForm({
 
       if (res?.ok) {
         // Wait for session to be updated
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         const session = await getSession();
 
         if (session?.user?.id) {
-          router.push(`/home/${session.user.id}`);
+          console.log("Redirecting to:", `/home/${session.user.id}`);
           toast.success("Login successful");
+          // Use replace instead of push to prevent back navigation to login
+          router.push(`/home`);
+        } else {
+          setError("Session not found");
         }
       } else {
         setError("Invalid credentials");
@@ -65,7 +68,6 @@ export function LoginForm({
       });
 
       if (result?.ok) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         const session = await getSession();
 
         if (session?.user?.id) {
@@ -117,7 +119,7 @@ export function LoginForm({
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
+                    className="ml-auto text-sm underline-offset-2 hover:underline text-white font-display"
                   >
                     Forgot your password?
                   </a>

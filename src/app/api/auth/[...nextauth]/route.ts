@@ -5,9 +5,6 @@ import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import client from "@/lib/db";
-
 export const handler = NextAuth({
   session: {
     strategy: "jwt",
@@ -70,6 +67,8 @@ export const handler = NextAuth({
     },
     // JWT Callback
     async jwt({ token, user }) {
+      console.log("token", token);
+
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -81,11 +80,15 @@ export const handler = NextAuth({
 
     // Session Callback
     async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.email = token.email;
-        session.user.name = token.name;
-        session.user.image = token.picture;
+      console.log("session", session);
+
+      if (token) {
+        session.user = {
+          id: token.id as string,
+          email: token.email,
+          name: token.name,
+          image: token.picture,
+        };
       }
       return session;
     },
