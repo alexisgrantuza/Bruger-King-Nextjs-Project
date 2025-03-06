@@ -64,14 +64,14 @@ export function LoginForm({
       const session = await getSession();
       const result = await signIn(value, {
         redirect: false,
-        callbackUrl: `/home/${session?.user?.id}`,
+        callbackUrl: `/home`,
       });
 
       if (result?.ok) {
         const session = await getSession();
 
         if (session?.user?.id) {
-          router.push(`/home/${session?.user?.id}`);
+          router.push(`/home}`);
           toast.success(`${value} login successful!`);
         } else {
           setError(`${value} login failed`);

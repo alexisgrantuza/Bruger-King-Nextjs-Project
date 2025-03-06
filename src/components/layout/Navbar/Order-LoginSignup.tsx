@@ -39,7 +39,7 @@ function OrderLoginSignup() {
               <Avatar className="size-10 hover:opacity-75 transition">
                 <AvatarImage
                   className="size-10 hover:opacity-75 transition"
-                  src={session.user?.image || undefined}
+                  src={session.user?.image || "/image/burger-1.png"}
                 />
                 <AvatarFallback className="bg-sky-900 text-white">
                   {avatarFallback}
